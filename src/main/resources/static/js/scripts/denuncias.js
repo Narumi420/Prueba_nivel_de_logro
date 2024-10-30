@@ -36,7 +36,7 @@ function save(bandera) {
 				$("#error-message").addClass("d-none");
                 Swal.fire({
                     icon: 'success',
-                    title: `Se ha ${bandera === 1 ? 'guardado' : 'actualizado'} el producto`,
+                    title: `Se ha ${bandera === 1 ? 'guardado' : 'actualizado'} la denuncia`,
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -60,7 +60,7 @@ function deleteFila(id) {
             if (data.ok) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Se ha eliminado el productos',
+                    title: 'Se ha eliminado la denuncia',
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -138,11 +138,14 @@ function getFila(id) {
     ajaxRequest("GET", `${url}/${id}`)
         .done((data) => {
             if (data.ok) {
-                $("#modal-title").text("Editar producto");
+                $("#modal-title").text("Editar denuncia");
                 $("#titulo").val(data.body.titulo);
                 $("#descripcion").val(data.body.descripcion);
                 $("#ubicacion").val(data.body.ubicacion);
-                $("#estado").val(data.body.estado);
+                const estadoActual = data.body.estado;
+                // Establecer el valor del select con el estado actual
+                $("#estado").val(estadoActual);
+              //  $("#estado").val(data.body.estado);
                 $("#ciudadano").val(data.body.ciudadano);
                 $("#telefono").val(data.body.telefonoCiudadano);
                 setFecha(data.body.fechaRegistro); // Aquí se establece la fecha específica, ya en el formato correcto
@@ -156,7 +159,7 @@ function getFila(id) {
 }
 
 function clear() {
-    $("#modal-title").text("Nuevo producto");
+    $("#modal-title").text("Nuevo denuncia");
     $("#titulo").val("");
     $("#descripcion").val("");
     $("#ubicacion").val("");
